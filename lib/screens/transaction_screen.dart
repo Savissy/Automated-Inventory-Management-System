@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_management/screens/product_module.dart';
-import 'package:inventory_management/screens/transaction_module.dart';
+import 'package:inventory_management/screens/maintenance_module.dart'; // Changed import
 import 'package:inventory_management/utils/custom_appbar.dart';
 import 'package:inventory_management/utils/flutter_toast.dart';
 
@@ -14,18 +14,13 @@ class TransactionPage extends StatefulWidget {
 }
 
 class _TransactionPageState extends State<TransactionPage> {
-  // Future<void> deleteProduct(String docID) async {
-  //   await FirebaseFirestore.instance.collection('products').doc(docID).delete();
-  //   showToastMessage('Items has been deleted');
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Color.fromARGB(255, 154, 209, 235),
+        color: const Color.fromARGB(255, 154, 209, 235),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -53,10 +48,10 @@ class _TransactionPageState extends State<TransactionPage> {
                             'Description',
                             style: TextStyle(color: Colors.white),
                           )),
-                      Expanded(
+                      Expanded( // Changed from 'Type' to 'Asset'
                           flex: 2,
                           child: Text(
-                            'Type',
+                            'Asset',
                             style: TextStyle(color: Colors.white),
                           )),
                       Expanded(
@@ -69,8 +64,6 @@ class _TransactionPageState extends State<TransactionPage> {
                   ),
                 ),
               ),
-
-              //       data will input here from databae
               StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('transactions')
@@ -79,8 +72,8 @@ class _TransactionPageState extends State<TransactionPage> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  if (snapshot.data == null) {
-                    return Center(child: Text('No Data'));
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text('No Data'));
                   }
                   final fetchedData = snapshot.data!.docs;
 
@@ -98,7 +91,7 @@ class _TransactionPageState extends State<TransactionPage> {
                               Expanded(
                                   flex: 2,
                                   child: Text(
-                                    '     $index',
+                                    '     ${index + 1}',
                                     style: const TextStyle(color: Colors.black),
                                   )),
                               Expanded(
@@ -106,25 +99,25 @@ class _TransactionPageState extends State<TransactionPage> {
                                   child: Text(
                                     DateFormat('dd MMM, yyyy').format(
                                         (info['date'] as Timestamp).toDate()),
-                                    style: TextStyle(color: Colors.black),
+                                    style: const TextStyle(color: Colors.black),
                                   )),
                               Expanded(
                                   flex: 6,
                                   child: Text(
-                                    '${info['desc']}',
-                                    style: TextStyle(color: Colors.black),
+                                    info['desc'],
+                                    style: const TextStyle(color: Colors.black),
+                                  )),
+                              Expanded( // Changed from 'type' to 'asset'
+                                  flex: 2,
+                                  child: Text(
+                                    info['asset'],
+                                    style: const TextStyle(color: Colors.black),
                                   )),
                               Expanded(
                                   flex: 2,
                                   child: Text(
-                                    ' ${info['type']}',
-                                    style: TextStyle(color: Colors.black),
-                                  )),
-                              Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    ' ${info['amount']}',
-                                    style: TextStyle(color: Colors.black),
+                                    info['amount'],
+                                    style: const TextStyle(color: Colors.black),
                                   )),
                             ],
                           ),
@@ -139,17 +132,16 @@ class _TransactionPageState extends State<TransactionPage> {
         ),
       ),
       bottomNavigationBar: Container(
-        //height: 50,
-        color: Color.fromARGB(255, 2, 52, 94),
+        color: const Color.fromARGB(255, 2, 52, 94),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '  Manage Transaction',
+            const Text(
+              '  Manage Maintenance', // Changed from Transaction to Maintenance
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Hero(
                 tag: 'Product_page_to_module',
                 child: GestureDetector(
@@ -157,7 +149,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TransactionModule(),
+                        builder: (context) => const MaintenanceModule(), // Changed to MaintenanceModule
                       ),
                     );
                   },
@@ -174,12 +166,12 @@ class _TransactionPageState extends State<TransactionPage> {
                           color: Colors.blue.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
