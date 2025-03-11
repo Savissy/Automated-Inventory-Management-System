@@ -69,10 +69,6 @@ class _customAppbarState extends State<customAppbar> {
                 user_isSelected = false,
                 order_isSelected = false,
                 transaction_isSelected = false,
-                // print(
-                //     'Home---------------------------------------------------'),
-                // print(home_isSelected),
-                // print(product_isSelected),
                 setState(() {}),
                 Navigator.push(
                     context,
@@ -122,10 +118,6 @@ class _customAppbarState extends State<customAppbar> {
                 user_isSelected = false,
                 order_isSelected = false,
                 transaction_isSelected = false,
-                // print(
-                //     'Product---------------------------------------------------'),
-                // print(home_isSelected),
-                // print(product_isSelected),
                 setState(() {}),
                 Navigator.push(
                     context,
@@ -162,7 +154,7 @@ class _customAppbarState extends State<customAppbar> {
                             child: Image.asset(
                                 'assets/product_home_iconfinder.png'))),
                   ),
-                  Text('Products ',
+                  Text('Assets', // Changed from "Products"
                       style:
                           TextStyle(color: const Color.fromARGB(255, 8, 0, 0)))
                 ],
@@ -208,7 +200,7 @@ class _customAppbarState extends State<customAppbar> {
                             child: Image.asset(
                                 'assets/customer_2_iconfinder.webp'))),
                   ),
-                  Text('Customers',
+                  Text('Clients', // Changed from "Customers"
                       style:
                           TextStyle(color: const Color.fromARGB(255, 8, 0, 0)))
                 ],
@@ -355,7 +347,7 @@ class _customAppbarState extends State<customAppbar> {
                             child: Image.asset(
                                 'assets/transaction_2_iconfinder.png'))),
                   ),
-                  Text('Transaction',
+                  Text('Maintenance', // Changed from "Transaction"
                       style:
                           TextStyle(color: const Color.fromARGB(255, 8, 0, 0)))
                 ],
@@ -404,7 +396,7 @@ class _customAppbarState extends State<customAppbar> {
                             padding: const EdgeInsets.all(8.0),
                             child: Image.asset('assets/order_iconfinder.png'))),
                   ),
-                  Text('Orders',
+                  Text('Financial Analysis', // Changed from "Orders"
                       style:
                           TextStyle(color: const Color.fromARGB(255, 8, 0, 0)))
                 ],
