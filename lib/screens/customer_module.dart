@@ -78,7 +78,7 @@ class _CustomerModuleState extends State<CustomerModule> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Customer Module',
+                      'Client Module', // Changed from 'Customer Module' to 'Client Module'
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
