@@ -9,15 +9,15 @@ import 'package:inventory_management/utils/custome_button.dart';
 import 'package:inventory_management/utils/flutter_toast.dart';
 import 'package:inventory_management/utils/input_box.dart';
 
-class ProductModule extends StatefulWidget {
-  const ProductModule({super.key});
+class AssetModule extends StatefulWidget {
+  const AssetModule({super.key});
 
   @override
-  State<ProductModule> createState() => _ProductModuleState();
+  State<AssetModule> createState() => _AssetModuleState();
 }
 
-class _ProductModuleState extends State<ProductModule> {
-  TextEditingController productNameText = TextEditingController();
+class _AssetModuleState extends State<AssetModule> {
+  TextEditingController assetNameText = TextEditingController();
 
   TextEditingController quantityText = TextEditingController();
 
@@ -41,7 +41,7 @@ class _ProductModuleState extends State<ProductModule> {
   }
 
   void uploadToFirebase() async {
-    if (productNameText.text.isEmpty ||
+    if (assetNameText.text.isEmpty ||
         quantityText.text.isEmpty ||
         descriptionText.text.isEmpty ||
         categoryText.text.isEmpty ||
@@ -49,15 +49,15 @@ class _ProductModuleState extends State<ProductModule> {
       showToastMessage('Please input first', context, false);
       return;
     }
-    await FirebaseFirestore.instance.collection('products').add({
-      'name': productNameText.text,
+    await FirebaseFirestore.instance.collection('assets').add({
+      'name': assetNameText.text,
       'id': generateRandomID(),
       'stock': quantityText.text,
       'price': priceText.text,
       'description': descriptionText.text,
       'category': categoryText.text
     });
-    showToastMessage('Product added!', context, true);
+    showToastMessage('Asset added!', context, true);
 
     if (context.mounted) {
       Navigator.push(
@@ -65,17 +65,7 @@ class _ProductModuleState extends State<ProductModule> {
     }
   }
 
-  List<String> allCat = [];
-  Future<bool> loadCategories() async {
-    final rawResponse =
-        await FirebaseFirestore.instance.collection('categories').get();
-    final response = rawResponse.docs;
-    for (var element in response) {
-      allCat.add(element['name']);
-    }
-
-    return true;
-  }
+  List<String> allCat = ['Laptop', 'Vehicles', 'Others'];
 
   @override
   Widget build(BuildContext context) {
@@ -84,101 +74,94 @@ class _ProductModuleState extends State<ProductModule> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Color.fromARGB(255, 154, 209, 235),
-        child: FutureBuilder(
-            future: loadCategories(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    customAppbar(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 35,
-                      color: const Color.fromARGB(255, 240, 21, 5),
-                      child: const Hero(
-                        tag: 'Product_page_to_module',
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Product Module',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                          ],
-                        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              customAppbar(),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 35,
+                color: const Color.fromARGB(255, 240, 21, 5),
+                child: const Hero(
+                  tag: 'Asset_page_to_module',
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Asset Module',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        CustomInputBox(
-                          controller: productNameText,
-                          title: 'Product Name',
-                        ),
-                        CustomInputBox(
-                          controller: quantityText,
-                          title: ' Stock',
-                        ),
-                        CustomInputBox(
-                          controller: priceText,
-                          title: 'Price',
-                        ),
-                        CustomInputBox(
-                          controller: descriptionText,
-                          title: 'Description',
-                        ),
-                        CustomDropDown(
-                          options: allCat,
-                          title: 'Category',
-                          controller: categoryText,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      GestureDetector(
-                          onTap: uploadToFirebase,
-                          child: customButton(
-                            title: 'Save',
-                            startingColor: Colors.green.shade300,
-                            endColor: Colors.green.shade900,
-                          )),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      // customButton(
-                      //   title: 'Update',
-                      // ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                      GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: customButton(
-                          title: 'Cancel',
-                          startingColor: Colors.red.shade900,
-                          endColor: Colors.red.shade300,
-                        ),
-                      )
-                    ])
-                  ],
+                    ],
+                  ),
                 ),
-              );
-            }),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomInputBox(
+                    controller: assetNameText,
+                    title: 'Asset Name',
+                  ),
+                  CustomInputBox(
+                    controller: quantityText,
+                    title: ' Stock',
+                  ),
+                  CustomInputBox(
+                    controller: priceText,
+                    title: 'Price',
+                  ),
+                  CustomInputBox(
+                    controller: descriptionText,
+                    title: 'Description',
+                  ),
+                  CustomDropDown(
+                    options: allCat,
+                    title: 'Category',
+                    controller: categoryText,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                GestureDetector(
+                    onTap: uploadToFirebase,
+                    child: customButton(
+                      title: 'Save',
+                      startingColor: Colors.green.shade300,
+                      endColor: Colors.green.shade900,
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
+                // customButton(
+                //   title: 'Update',
+                // ),
+                // SizedBox(
+                //   width: 10,
+                // ),
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: customButton(
+                    title: 'Cancel',
+                    startingColor: Colors.red.shade900,
+                    endColor: Colors.red.shade300,
+                  ),
+                )
+              ])
+            ],
+          ),
+        ),
       ),
     );
   }
