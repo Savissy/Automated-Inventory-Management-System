@@ -47,7 +47,7 @@ class _customAppbarState extends State<customAppbar> {
             ),
             const Expanded(
               child: Text(
-                'Inventory Management and Automation System',
+                'Asset Management System', // Changed from "Inventory Management and Automation System"
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
@@ -149,13 +149,6 @@ class _customAppbarState extends State<customAppbar> {
                         decoration: BoxDecoration(
                           color: Color.fromARGB(255, 95, 182, 116),
                           shape: BoxShape.circle,
-                          // border: product_isSelected
-                          //     ? Border.all(
-                          //         color: Color.fromARGB(255, 0, 4,
-                          //             253), // Change this to your desired border color
-                          //         width: 5.0, // Adjust the width as needed
-                          //       )
-                          //     : null
                           border: product_isSelected
                               ? Border.all(
                                   color: Color.fromARGB(255, 2, 52,
