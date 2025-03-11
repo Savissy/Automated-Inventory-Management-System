@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_management/screens/product_module.dart';
-import 'package:inventory_management/screens/transaction_module.dart'; // Changed import
+import 'package:inventory_management/screens/transaction_module.dart'; // This is actually MaintenanceModule now
 import 'package:inventory_management/utils/custom_appbar.dart';
 import 'package:inventory_management/utils/flutter_toast.dart';
 
@@ -48,10 +48,10 @@ class _TransactionPageState extends State<TransactionPage> {
                             'Description',
                             style: TextStyle(color: Colors.white),
                           )),
-                      Expanded( // Changed from 'Type' to 'Asset'
+                      Expanded(
                           flex: 2,
                           child: Text(
-                            'Asset',
+                            'Asset', // Changed to Asset
                             style: TextStyle(color: Colors.white),
                           )),
                       Expanded(
@@ -64,6 +64,7 @@ class _TransactionPageState extends State<TransactionPage> {
                   ),
                 ),
               ),
+
               StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('transactions')
@@ -73,7 +74,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return const Center(child: Text('No Data'));
+                    return const Center(child: Text('No Maintenance Records'));
                   }
                   final fetchedData = snapshot.data!.docs;
 
@@ -107,10 +108,10 @@ class _TransactionPageState extends State<TransactionPage> {
                                     info['desc'],
                                     style: const TextStyle(color: Colors.black),
                                   )),
-                              Expanded( // Changed from 'type' to 'asset'
+                              Expanded(
                                   flex: 2,
                                   child: Text(
-                                    info['asset'],
+                                    info['asset'] ?? 'N/A', // Now reading 'asset' field
                                     style: const TextStyle(color: Colors.black),
                                   )),
                               Expanded(
@@ -137,7 +138,7 @@ class _TransactionPageState extends State<TransactionPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              '  Manage Maintenance', // Changed from Transaction to Maintenance
+              '  Maintenance Records', // Updated label
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             Padding(
@@ -149,7 +150,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MaintenanceModule(), // Changed to MaintenanceModule
+                        builder: (context) => const TransactionModule(), // This is actually MaintenanceModule
                       ),
                     );
                   },
