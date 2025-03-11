@@ -45,7 +45,7 @@ class _CustomerPageState extends State<CustomerPage> {
                       Expanded(
                           flex: 2,
                           child: Text(
-                            '  Customer ID',
+                            '  Client ID', // Changed from 'Customer ID' to 'Client ID'
                             style: TextStyle(color: Colors.white),
                           )),
                       Expanded(
