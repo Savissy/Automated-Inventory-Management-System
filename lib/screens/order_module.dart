@@ -12,14 +12,14 @@ import 'package:inventory_management/utils/flutter_toast.dart';
 import 'package:inventory_management/utils/input_box.dart';
 import 'package:inventory_management/utils/search_box.dart';
 
-class OrderModule extends StatefulWidget {
-  const OrderModule({super.key});
+class AnalysisModule extends StatefulWidget {
+  const AnalysisModule({super.key});
 
   @override
-  State<OrderModule> createState() => _OrderModuleState();
+  State<AnalysisModule> createState() => _AnalysisModuleState();
 }
 
-class _OrderModuleState extends State<OrderModule> {
+class _AnalysisModuleState extends State<AnalysisModule> {
   TextEditingController customerSearchText = TextEditingController();
   TextEditingController productSearchText = TextEditingController();
   TextEditingController customerIdText = TextEditingController();
@@ -50,7 +50,6 @@ class _OrderModuleState extends State<OrderModule> {
   void createOrder() async {
     if (customerNameText.text.isEmpty || productNameText.text.isEmpty) {
       showToastMessage('Please input first', context, false);
-
       return;
     }
     await FirebaseFirestore.instance.collection('orders').add({
@@ -157,7 +156,7 @@ class _OrderModuleState extends State<OrderModule> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Order Module',
+                                  'Analysis Module',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -184,7 +183,7 @@ class _OrderModuleState extends State<OrderModule> {
                                     child: const Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: Text(
-                                        'CUSTOMER',
+                                        'CLIENT',
                                         style: TextStyle(
                                           fontSize: 25,
                                           color: Color.fromARGB(
@@ -213,7 +212,7 @@ class _OrderModuleState extends State<OrderModule> {
                                 ),
                                 CustomSearchBox(
                                   controller: customerIdText,
-                                  title: 'Customer Id',
+                                  title: 'Client ID',
                                   wd: .3,
                                 ),
                                 SizedBox(
@@ -221,7 +220,7 @@ class _OrderModuleState extends State<OrderModule> {
                                 ),
                                 CustomSearchBox(
                                   controller: customerNameText,
-                                  title: 'Customer Name',
+                                  title: 'Client Name',
                                   wd: .3,
                                 ),
                                 SizedBox(
@@ -229,7 +228,7 @@ class _OrderModuleState extends State<OrderModule> {
                                 ),
                                 CustomSearchBox(
                                   controller: customerAddressText,
-                                  title: 'Customer Address',
+                                  title: 'Client Address',
                                   wd: .3,
                                 ),
                               ],
@@ -250,7 +249,7 @@ class _OrderModuleState extends State<OrderModule> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      'PRODUCT',
+                                      'ASSET',
                                       style: TextStyle(
                                         fontSize: 30,
                                         color: const Color.fromARGB(
@@ -260,9 +259,6 @@ class _OrderModuleState extends State<OrderModule> {
                                   ),
                                 ),
                               ),
-
-                              //under the product text   2 colums in 1 row
-
                               Container(
                                 width: MediaQuery.of(context).size.width * .65,
                                 child: Row(
@@ -289,13 +285,13 @@ class _OrderModuleState extends State<OrderModule> {
                                           ),
                                           CustomInputBox(
                                               controller: productIdText,
-                                              title: 'Product ID'),
+                                              title: 'Asset ID'),
                                           SizedBox(
                                             height: 20,
                                           ),
                                           CustomInputBox(
                                               controller: productNameText,
-                                              title: "Product Name"),
+                                              title: "Asset Name"),
                                         ],
                                       ),
                                     ),
@@ -333,7 +329,6 @@ class _OrderModuleState extends State<OrderModule> {
                               SizedBox(
                                 height: 40,
                               ),
-
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -341,7 +336,7 @@ class _OrderModuleState extends State<OrderModule> {
                                     GestureDetector(
                                         onTap: createOrder,
                                         child: customButton(
-                                          title: 'Order Insert',
+                                          title: 'Insert',
                                           startingColor: Colors.green.shade300,
                                           endColor: Colors.green.shade900,
                                         )),
