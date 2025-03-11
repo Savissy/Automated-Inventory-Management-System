@@ -11,17 +11,17 @@ import 'package:inventory_management/utils/custome_button.dart';
 import 'package:inventory_management/utils/flutter_toast.dart';
 import 'package:inventory_management/utils/input_box.dart';
 
-class TransactionModule extends StatefulWidget {
-  const TransactionModule({super.key});
+class MaintenanceModule extends StatefulWidget {
+  const MaintenanceModule({super.key});
 
   @override
-  State<TransactionModule> createState() => _TransactionModuleState();
+  State<MaintenanceModule> createState() => _MaintenanceModuleState();
 }
 
-class _TransactionModuleState extends State<TransactionModule> {
+class _MaintenanceModuleState extends State<MaintenanceModule> {
   TextEditingController productNameText = TextEditingController();
 
-  TextEditingController transactionType = TextEditingController();
+  TextEditingController assetText = TextEditingController(); // Changed from transactionType to assetText
 
   TextEditingController priceText = TextEditingController();
   TextEditingController descriptionText = TextEditingController();
@@ -43,7 +43,7 @@ class _TransactionModuleState extends State<TransactionModule> {
   }
 
   void uploadToFirebase() async {
-    if (transactionType.text.isEmpty ||
+    if (assetText.text.isEmpty ||
         descriptionText.text.isEmpty ||
         priceText.text.isEmpty) {
       showToastMessage('Please input first', context, false);
@@ -53,11 +53,11 @@ class _TransactionModuleState extends State<TransactionModule> {
     await FirebaseFirestore.instance.collection('transactions').add({
       'desc': descriptionText.text,
       'id': generateRandomID(),
-      'type': transactionType.text,
+      'asset': assetText.text, // Changed from 'type' to 'asset'
       'date': DateTime.now(),
       'amount': priceText.text
     });
-    showToastMessage('Transaction has been added!', context, true);
+    showToastMessage('Maintenance record has been added!', context, true); // Updated message
 
     if (context.mounted) {
       Navigator.push(context,
@@ -84,7 +84,7 @@ class _TransactionModuleState extends State<TransactionModule> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Transaction Module',
+                      'Maintenance Module', // Changed from 'Transaction Module' to 'Maintenance Module'
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -101,12 +101,11 @@ class _TransactionModuleState extends State<TransactionModule> {
                   ),
                   CustomInputBox(
                     controller: descriptionText,
-                    title: ' Discription',
+                    title: ' Description',
                   ),
-                  CustomDropDown(
-                    options: ['Credit', 'Debit'],
-                    controller: transactionType,
-                    title: ' Type',
+                  CustomInputBox( // Replaced CustomDropDown with CustomInputBox for 'Asset'
+                    controller: assetText,
+                    title: ' Asset', // Changed from 'Type' to 'Asset'
                   ),
                   CustomInputBox(
                     controller: priceText,
@@ -128,12 +127,6 @@ class _TransactionModuleState extends State<TransactionModule> {
                 SizedBox(
                   width: 10,
                 ),
-                // customButton(
-                //   title: 'Update',
-                // ),
-                // SizedBox(
-                //   width: 10,
-                // ),
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: customButton(
