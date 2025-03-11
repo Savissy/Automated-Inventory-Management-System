@@ -108,9 +108,9 @@ class _UserModuleState extends State<UserModule> {
                   ),
                   CustomDropDown(
                     options: const [
-                      'Supervisor',
-                      'Stock Manager',
-                      'Accountant',
+                      'Stakeholders',
+                      'Asset managers',
+                      'Employees',
                     ],
                     controller: userRole,
                     title: 'User Role',
