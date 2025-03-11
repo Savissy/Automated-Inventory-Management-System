@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory_management/screens/product_module.dart';
-import 'package:inventory_management/screens/maintenance_module.dart'; // Changed import
+import 'package:inventory_management/screens/transaction_module.dart'; // Changed import
 import 'package:inventory_management/utils/custom_appbar.dart';
 import 'package:inventory_management/utils/flutter_toast.dart';
 
