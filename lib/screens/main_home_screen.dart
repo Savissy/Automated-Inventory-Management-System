@@ -33,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 32, 32, 32),
-      //drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,13 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
                     customAppbar(),
-                    const SizedBox(
-                      height: 50,
-                    ),
+                    const SizedBox(height: 50),
                     Column(
                       children: [
                         Row(
@@ -73,12 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   }
                                   if (snapshot.data == null) {
                                     return cardMain(
-                                        name: 'Products', number: 0);
+                                        name: 'Assets', number: 0);
                                   }
                                   final response = snapshot.data!.docs;
-
                                   return cardMain(
-                                      name: 'Products',
+                                      name: 'Assets',
                                       number: response.length);
                                 }),
                             StreamBuilder(
@@ -94,12 +88,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   }
                                   if (snapshot.data == null) {
                                     return cardMain(
-                                        name: 'Customers', number: 0);
+                                        name: 'Clients', number: 0);
                                   }
                                   final response = snapshot.data!.docs;
-
                                   return cardMain(
-                                      name: 'Customers',
+                                      name: 'Clients',
                                       number: response.length);
                                 }),
                             StreamBuilder(
@@ -118,7 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         name: 'Categories', number: 0);
                                   }
                                   final response = snapshot.data!.docs;
-
                                   return cardMain(
                                       name: 'Categories',
                                       number: response.length);
@@ -138,7 +130,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     return cardMain(name: 'Users', number: 0);
                                   }
                                   final response = snapshot.data!.docs;
-
                                   return cardMain(
                                       name: 'Users', number: response.length);
                                 }),
@@ -154,18 +145,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     );
                                   }
                                   if (snapshot.data == null) {
-                                    return cardMain(name: 'Orders', number: 0);
+                                    return cardMain(
+                                        name: 'Financial Analysis', number: 0);
                                   }
                                   final response = snapshot.data!.docs;
-
                                   return cardMain(
-                                      name: 'Orders', number: response.length);
+                                      name: 'Financial Analysis',
+                                      number: response.length);
                                 }),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -208,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: CustomContaineBox(
                                           startingColor: Colors.blue.shade200,
                                           endColor: Colors.blue.shade900,
-                                          text: 'Add Product',
+                                          text: 'Add Assets',
                                           imageUrl:
                                               "assets/product_iconfinder.webp",
                                           page: ProductModule(),
@@ -221,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Colors.green.shade200,
                                             endColor: Colors.green.shade900,
                                             page: CustomerModule(),
-                                            text: "Add Customer",
+                                            text: "Add Client",
                                             imageUrl:
                                                 "assets/customer2_iconfinder.png"),
                                       ),
@@ -238,9 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
+                                  SizedBox(width: 30),
                                   Column(
                                     children: [
                                       Padding(
@@ -261,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             startingColor: const Color.fromARGB(
                                                 255, 15, 235, 95),
                                             page: TransactionModule(),
-                                            text: "New Transaction",
+                                            text: "Maintenance",
                                             imageUrl:
                                                 "assets/transaction_iconfinder.webp"),
                                       ),
@@ -273,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             startingColor:
                                                 Color.fromARGB(255, 78, 2, 76),
                                             page: OrderModule(),
-                                            text: "Add Orders",
+                                            text: "Financial Analysis",
                                             imageUrl:
                                                 "assets/order_2_iconfinder.png"),
                                       ),
@@ -286,9 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 30,
-                    )
+                    SizedBox(height: 30)
                   ],
                 ),
               ),
