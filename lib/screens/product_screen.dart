@@ -18,6 +18,11 @@ class _ProductPageState extends State<ProductPage> {
     showToastMessage('Items has been deleted', context, true);
   }
 
+  // Function to calculate depreciation (10% of the price)
+  double calculateDepreciation(double price) {
+    return price * 0.10;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,10 +53,10 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width *
-                            (2 * 0.03), // Product ID
+                            (2 * 0.03), // Asset ID
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Product ID',
+                          'Asset ID',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -102,6 +107,15 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width *
+                            (3 * 0.0333), // Depreciation
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Depreciation',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width *
                             (2 * 0.0333), // Edit
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -141,6 +155,9 @@ class _ProductPageState extends State<ProductPage> {
                     shrinkWrap: true,
                     itemCount: fetchedData.length,
                     itemBuilder: (context, index) {
+                      final depreciation = calculateDepreciation(
+                          fetchedData[index]['price']);
+
                       return Card(
                           elevation: 3,
                           color: Color.fromARGB(255, 192, 188, 188),
@@ -209,6 +226,14 @@ class _ProductPageState extends State<ProductPage> {
                                 ),
                                 Container(
                                   width: MediaQuery.of(context).size.width *
+                                      (3 * 0.0333), // Flex: 3
+                                  child: Text(
+                                    " $depreciation",
+                                    //  style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width *
                                       (2 * 0.0333), // Flex: 1
                                   child: Text(
                                     ' Edit ',
@@ -244,7 +269,7 @@ class _ProductPageState extends State<ProductPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '  Manage Products',
+              '  Manage Assets',
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             Padding(
