@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_management/screens/categories_module.dart';
@@ -166,11 +165,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         BorderRadius.all(Radius.circular(30))),
                                 height: 400,
                                 child: BarChartSample1(
-                                  product_value: 94,
-                                  customer_value: 74,
+                                  assets_value: 94,  // Changed parameter name
+                                  clients_value: 74,  // Changed parameter name
                                   categories_value: 37,
                                   user_value: 57,
-                                  order_value: 74,
+                                  financial_analysis_value: 74,  // Changed parameter name
                                 )),
                             Column(children: [
                               Row(
