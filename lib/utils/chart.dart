@@ -1,24 +1,21 @@
 import 'dart:async';
 import 'dart:math';
-
-// import 'package:fl_chart_app/presentation/resources/app_resources.dart';
-// import 'package:fl_chart_app/util/extensions/color_extensions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class BarChartSample1 extends StatefulWidget {
   BarChartSample1(
       {super.key,
-      required this.customer_value,
-      required this.product_value,
+      required this.clients_value,
+      required this.assets_value,
       required this.categories_value,
       required this.user_value,
-      required this.order_value});
-  final int customer_value;
-  final int product_value;
+      required this.financial_analysis_value});
+  final int clients_value;
+  final int assets_value;
   final int categories_value;
   final int user_value;
-  final int order_value;
+  final int financial_analysis_value;
 
   List<Color> get availableColors => const <Color>[
         Colors.purple,
@@ -30,35 +27,33 @@ class BarChartSample1 extends StatefulWidget {
       ];
 
   final Color barBackgroundColor = Color.fromARGB(255, 255, 255, 255);
-
   final Color barColor = Color.fromARGB(255, 247, 222, 2);
   final Color touchedBarColor = const Color.fromARGB(255, 0, 185, 6);
 
   @override
   State<StatefulWidget> createState() => BarChartSample1State(
       categories_value: categories_value,
-      customer_value: customer_value,
-      order_value: order_value,
-      product_value: product_value,
+      clients_value: clients_value,
+      financial_analysis_value: financial_analysis_value,
+      assets_value: assets_value,
       user_value: user_value);
 }
 
 class BarChartSample1State extends State<BarChartSample1> {
   BarChartSample1State(
-      {required this.customer_value,
-      required this.product_value,
+      {required this.clients_value,
+      required this.assets_value,
       required this.categories_value,
       required this.user_value,
-      required this.order_value});
+      required this.financial_analysis_value});
   final Duration animDuration = Duration(milliseconds: 250);
-  final int customer_value;
-  final int product_value;
+  final int clients_value;
+  final int assets_value;
   final int categories_value;
   final int user_value;
-  final int order_value;
+  final int financial_analysis_value;
 
   int touchedIndex = -1;
-
   bool isPlaying = false;
 
   @override
@@ -82,12 +77,8 @@ class BarChartSample1State extends State<BarChartSample1> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 4,
-                ),
-                const SizedBox(
-                  height: 38,
-                ),
+                const SizedBox(height: 4),
+                const SizedBox(height: 38),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -97,32 +88,10 @@ class BarChartSample1State extends State<BarChartSample1> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
+                const SizedBox(height: 12),
               ],
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(14),
-          //   child: Align(
-          //     alignment: Alignment.topRight,
-          //     child: IconButton(
-          //       icon: Icon(
-          //         isPlaying ? Icons.pause : Icons.play_arrow,
-          //         color: const Color.fromARGB(255, 226, 233, 226),
-          //       ),
-          //       onPressed: () {
-          //         setState(() {
-          //           isPlaying = !isPlaying;
-          //           if (isPlaying) {-
-          //             refreshState();
-          //           }
-          //         });
-          //       },
-          //     ),
-          //   ),
-          // )
         ],
       ),
     );
@@ -146,8 +115,7 @@ class BarChartSample1State extends State<BarChartSample1> {
           width: width,
           borderSide: isTouched
               ? BorderSide(color: Color.fromARGB(255, 110, 155, 6))
-              : const BorderSide(
-                  color: Color.fromARGB(255, 126, 37, 37), width: 0),
+              : const BorderSide(color: Color.fromARGB(255, 126, 37, 37), width: 0),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
             toY: 100,
@@ -162,10 +130,10 @@ class BarChartSample1State extends State<BarChartSample1> {
   List<BarChartGroupData> showingGroups() => List.generate(5, (i) {
         switch (i) {
           case 0:
-            return makeGroupData(0, product_value.toDouble(),
+            return makeGroupData(0, assets_value.toDouble(),
                 isTouched: i == touchedIndex);
           case 1:
-            return makeGroupData(1, customer_value.toDouble(),
+            return makeGroupData(1, clients_value.toDouble(),
                 isTouched: i == touchedIndex);
           case 2:
             return makeGroupData(2, categories_value.toDouble(),
@@ -174,11 +142,8 @@ class BarChartSample1State extends State<BarChartSample1> {
             return makeGroupData(3, user_value.toDouble(),
                 isTouched: i == touchedIndex);
           case 4:
-            return makeGroupData(4, order_value.toDouble(),
+            return makeGroupData(4, financial_analysis_value.toDouble(),
                 isTouched: i == touchedIndex);
-          case 5:
-            return makeGroupData(5, 11.5, isTouched: i == touchedIndex);
-          case 6:
           default:
             return throw Error();
         }
@@ -195,10 +160,10 @@ class BarChartSample1State extends State<BarChartSample1> {
             String weekDay;
             switch (group.x) {
               case 0:
-                weekDay = 'Product';
+                weekDay = 'Assets';
                 break;
               case 1:
-                weekDay = 'Customer   ';
+                weekDay = 'Clients';
                 break;
               case 2:
                 weekDay = 'Category';
@@ -207,9 +172,8 @@ class BarChartSample1State extends State<BarChartSample1> {
                 weekDay = 'User';
                 break;
               case 4:
-                weekDay = 'Order';
+                weekDay = 'Financial Analysis';
                 break;
-
               default:
                 throw Error();
             }
@@ -266,9 +230,7 @@ class BarChartSample1State extends State<BarChartSample1> {
           ),
         ),
       ),
-      borderData: FlBorderData(
-        show: false,
-      ),
+      borderData: FlBorderData(show: false),
       barGroups: showingGroups(),
       gridData: const FlGridData(show: false),
     );
@@ -283,10 +245,10 @@ class BarChartSample1State extends State<BarChartSample1> {
     Widget text;
     switch (value.toInt()) {
       case 0:
-        text = const Text('Product', style: style);
+        text = const Text('Assets', style: style);
         break;
       case 1:
-        text = const Text('Customer', style: style);
+        text = const Text('Clients', style: style);
         break;
       case 2:
         text = const Text('Categories', style: style);
@@ -295,9 +257,8 @@ class BarChartSample1State extends State<BarChartSample1> {
         text = const Text('User', style: style);
         break;
       case 4:
-        text = const Text('Order', style: style);
+        text = const Text('Financial Analysis', style: style);
         break;
-
       default:
         text = const Text('', style: style);
         break;
@@ -311,9 +272,7 @@ class BarChartSample1State extends State<BarChartSample1> {
 
   BarChartData randomData() {
     return BarChartData(
-      barTouchData: BarTouchData(
-        enabled: false,
-      ),
+      barTouchData: BarTouchData(enabled: false),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
@@ -324,65 +283,23 @@ class BarChartSample1State extends State<BarChartSample1> {
           ),
         ),
         leftTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
-          ),
+          sideTitles: SideTitles(showTitles: false),
         ),
         topTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
-          ),
+          sideTitles: SideTitles(showTitles: false),
         ),
         rightTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
-          ),
+          sideTitles: SideTitles(showTitles: false),
         ),
       ),
-      borderData: FlBorderData(
-        show: false,
-      ),
-      barGroups: List.generate(7, (i) {
-        switch (i) {
-          case 0:
-            return makeGroupData(
-              0,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 1:
-            return makeGroupData(
-              1,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 2:
-            return makeGroupData(
-              2,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 3:
-            return makeGroupData(
-              3,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 4:
-            return makeGroupData(
-              4,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-
-          default:
-            return throw Error();
-        }
+      borderData: FlBorderData(show: false),
+      barGroups: List.generate(5, (i) {
+        return makeGroupData(
+          i,
+          Random().nextInt(15).toDouble() + 6,
+          barColor: widget.availableColors[
+              Random().nextInt(widget.availableColors.length)],
+        );
       }),
       gridData: const FlGridData(show: false),
     );
